@@ -13,6 +13,7 @@ import { AuthorityId } from '@polkadot/types/interfaces/consensus';
 import { ContractCallRequest, ContractExecResult } from '@polkadot/types/interfaces/contracts';
 import { CreatedBlock } from '@polkadot/types/interfaces/engine';
 import { Extrinsic } from '@polkadot/types/interfaces/extrinsics';
+import { ReportedRoundStates } from '@polkadot/types/interfaces/grandpa';
 import { StorageKind } from '@polkadot/types/interfaces/offchain';
 import { RuntimeDispatchInfo } from '@polkadot/types/interfaces/payment';
 import { RpcMethods } from '@polkadot/types/interfaces/rpc';
@@ -140,15 +141,21 @@ declare module '@polkadot/rpc-core/types.jsonrpc' {
        **/
       finalizeBlock: AugmentedRpc<(hash: BlockHash | string | Uint8Array, justification?: Justification | string | Uint8Array) => Observable<bool>>;
     };
+    grandpa: {
+      /**
+       * Returns the state of the current best round state as well as the ongoing background rounds
+       **/
+      roundState: AugmentedRpc<() => Observable<ReportedRoundStates>>;
+    };
     offchain: {
       /**
        * Get offchain local storage under given key and prefix
        **/
-      localStorageGet: AugmentedRpc<(kind: StorageKind | ('__UNUSED' | 'PERSISTENT' | 'LOCAL') | number | Uint8Array, key: Bytes | string | Uint8Array) => Observable<Option<Bytes>>>;
+      localStorageGet: AugmentedRpc<(kind: StorageKind | '__UNUSED' | 'PERSISTENT' | 'LOCAL' | number | Uint8Array, key: Bytes | string | Uint8Array) => Observable<Option<Bytes>>>;
       /**
        * Set offchain local storage under given key and prefix
        **/
-      localStorageSet: AugmentedRpc<(kind: StorageKind | ('__UNUSED' | 'PERSISTENT' | 'LOCAL') | number | Uint8Array, key: Bytes | string | Uint8Array, value: Bytes | string | Uint8Array) => Observable<Null>>;
+      localStorageSet: AugmentedRpc<(kind: StorageKind | '__UNUSED' | 'PERSISTENT' | 'LOCAL' | number | Uint8Array, key: Bytes | string | Uint8Array, value: Bytes | string | Uint8Array) => Observable<Null>>;
     };
     payment: {
       /**
@@ -234,7 +241,7 @@ declare module '@polkadot/rpc-core/types.jsonrpc' {
       /**
        * Subscribes to storage changes for the provided keys
        **/
-      subscribeStorage: AugmentedRpc<<T = Codec[]>(keys: Vec<StorageKey> | (StorageKey | string | Uint8Array | any)[]) => Observable<T>>;
+      subscribeStorage: AugmentedRpc<<T = Codec[]>(keys?: Vec<StorageKey> | (StorageKey | string | Uint8Array | any)[]) => Observable<T>>;
     };
     system: {
       /**

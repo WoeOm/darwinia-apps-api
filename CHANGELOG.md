@@ -1,3 +1,39 @@
+# 1.14.0-beta.x
+
+- Ensure metadata is only requested once upon startup
+
+# 1.13.1 May 6, 2020
+
+- Add support for ECDSA keypairs in extrinsic signers (Thanks to https://github.com/akru)
+- Rework type generation to use templating for better maintenance (Thanks to https://github.com/xlc)
+- Adjust extrinsic `sign/signAsync` signature to optional options (Thanks to https://github.com/KiChjang)
+- Support round-robin endpoints in the `WsProvider` with array of urls (Thanks to https://github.com/hoani)
+- Remove static test-only metadata for Polkadot dev chains (not updated regularly, Substrate dev to remain)
+- Revert error swallow for wrong preimage data (temp. override for Kusama upgrade with no migration)
+- Fix `.encodedLength` calculation on `[Type; N]` types
+- Add new `rpc.grandpa.roundState` RPC
+- Update types & metadata as per latest Substrate master
+- Adjust Centrifuge starting version
+
+# 1.12.2 Apr 30, 2020
+
+- Update @polkadot/util to stable 2.9.1 (sadly missed in the previous version, stable should match to stable)
+
+# 1.12.1 Apr 29, 2020
+
+- Fix `CompactAssignments` types (Thanks to https://github.com/arjanz)
+- Provider ayo-connect now allows for interval config (Thanks to https://github.com/jnaviask)
+- Cleanup generation for c-like enums (Thanks to https://github.com/monitz87)
+- Allow subscription to all storage keys, alignment with Substrate (Thanks to https://github.com/xlc)
+- Cater for vote delegations in democracy derives
+- Cleanup account derive flags where to allow for optional council modules
+- Allow generic types in ApiPromise.combineLatest
+- Update to latest substrate metadata
+
+# 1.11.2 Apr 22, 2020
+
+- Small patch to add missing Polkadot master types (will be in next Kusama update)
+
 # 1.11.1 Apr 21, 2020
 
 - **Important** Substrate master has an updated `Weight` (to `u64`), on older chains apply `Weight: 'u32'` (This does affect event decoding if wrongly set)
